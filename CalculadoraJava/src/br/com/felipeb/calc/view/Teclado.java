@@ -22,6 +22,10 @@ public class Teclado extends JPanel {
 
 		setLayout(layout);
 		
+		constrain.weightx = 1;
+		constrain.weighty = 1;
+		constrain.fill = GridBagConstraints.BOTH;
+		
 		//Linha 1
 		adicionarBotao("AC", COR_CINZA, constrain, 0, 0);
 		adicionarBotao("+-", COR_CINZA, constrain, 1, 0);
@@ -46,9 +50,10 @@ public class Teclado extends JPanel {
 		adicionarBotao("1", COR_CLARO, constrain,  2, 3);
 		adicionarBotao("+", COR_LARANJA, constrain, 3, 3);
 
-		//Linha 5
+		//Linha 5;
+		constrain.gridwidth = 2;
 		adicionarBotao("0", COR_CLARO, constrain, 0, 4);
-		adicionarBotao("0", COR_CLARO, constrain, 1, 4);
+		constrain.gridwidth = 1;
 		adicionarBotao(",", COR_CLARO, constrain,  2, 4);
 		adicionarBotao("=", COR_LARANJA, constrain, 3, 4);
 		
