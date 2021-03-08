@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.tools.javac.api.DiagnosticFormatter.Configuration.MultilineLimit;
-
 public class Memoria {
 
 	private enum TipoComando{
