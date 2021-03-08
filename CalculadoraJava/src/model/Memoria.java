@@ -3,8 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.tools.javac.api.DiagnosticFormatter.Configuration.MultilineLimit;
+
 public class Memoria {
 
+	private enum TipoComando{
+		ZERAR, DIV, SOMA, MULT, SUB, VIRGULA,IGUAL,NUMERO;
+	};
+	
 	private static final Memoria instacia = new Memoria();
 	
 	private List<MemoriaObservador> observadores = new ArrayList<MemoriaObservador>();
@@ -28,8 +34,38 @@ public class Memoria {
 	
 	public void processarComando(String valor) {
 		
+		TipoComando tipoComando = detectarComando(valor);
 		textoAtual+= valor;
-		observadores.forEach(o-> o.valorAlterado(textoAtual));
+		observadores.forEach(o-> o.valorAlterado(getTextoAtual()));
+	}
+
+	private TipoComando detectarComando(String valor) {
+		
+		if(textoAtual.isEmpty() && valor == "0") {
+			return null;
+		}
+		try {
+			Integer.parseInt(valor);
+			return TipoComando.NUMERO;
+		} catch (NumberFormatException e) {
+			// Quando não for número, os demais casts serão feitos aqui
+			if("AC".equals(valor)) {
+				return TipoComando.ZERAR;
+			}else if("/".equals(valor)) {
+				return TipoComando.DIV;
+			}else if("*".equals(valor)) {
+				return TipoComando.MULT;
+			}else if("+".equals(valor)) {
+				return TipoComando.SOMA;
+			}else if("-".equals(valor)) {
+				return TipoComando.SUB;
+			}else if("=".equals(valor)) {
+				return TipoComando.IGUAL;
+			} else if(",".equals(valor)) {
+				return TipoComando.VIRGULA;
+			}
+		}
+		return null;
 	}
 
 }
